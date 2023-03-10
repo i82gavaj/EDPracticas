@@ -144,12 +144,27 @@ template<class T>
       //Remember: throw std:runtime_error exception with text
       //"Wrong input format." when an input format error is found.
       T dato;
+      in>>token;
       if(token=="[]"){
           return tree;
       }else if(token!="["){
           throw std::runtime_error("Wrong input format");
       }
+      in>>token;
+      std::stringstream datos(token);
 
+      datos>>dato;
+      if(datos.fail()){
+          throw std::runtime_error("Wrong input format");
+      }
+        tree->set_root(BTNode<T>::create(dato));
+        tree->set_left(create(in));
+        tree->set_right(create(in));
+        if(token!="]"){
+             throw std::runtime_error("Wrong input format");
+        }else if(token!="[]"){
+             throw std::runtime_error("Wrong input format");
+        }
 
       //
       return tree;
@@ -206,6 +221,17 @@ template<class T>
   std::ostream& BTree<T>::fold(std::ostream& out) const
   {
       //TODO
+    if(is_empty()){
+    out<<"[]";
+    return out;
+    }
+    out<<"[ ";
+    out<<item();
+    out<<" ";
+    left()->fold(out);
+    out<<" ";
+    right()->fold(out);
+    out<<" ]";
 
       //
       return out;
@@ -216,11 +242,9 @@ template<class T>
     {
         assert(is_empty());
         //TODO
-        this->set_root(it);
-        this->set_left(nullptr);
-        this->set_right(nullptr);
+        root_=BTNode<T>::create(it);
         //
-        assert(!is_empty());
+        assert(is_empty());
         assert(item()==it);
         assert(left()->is_empty());
         assert(right()->is_empty());
@@ -242,7 +266,7 @@ template<class T>
   {
       assert(!is_empty());
       //TODO
-        this->set_left(new_left);
+        root_->set_left(new_left->root());
       //
       assert(left()->root()==new_left->root());
   }
@@ -252,7 +276,7 @@ template<class T>
   {
       assert(!is_empty());
       //TODO
-        this->set_right(new_right);
+        root_->set_right(new_right->root());
       //
       assert(right()->root()==new_right->root());
   }
