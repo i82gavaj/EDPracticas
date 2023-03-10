@@ -185,7 +185,7 @@ template<class T>
       BTree<T>::Ref subtree = nullptr;
       //TODO
       //Hint: use the private constructor given a root node.
-        subtree(this->left());
+        subtree(root_->left());
       //
       return subtree;
   }
@@ -197,7 +197,7 @@ template<class T>
       BTree<T>::Ref subtree = nullptr;
       //TODO
       //Hint: use the private constructor given a root node.
-        subtree(this->right());
+        subtree(root_->right());
       //
       return subtree;
   }
