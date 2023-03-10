@@ -160,7 +160,7 @@ template<class T>
   {
       bool ret_v = false;
       //TODO
-      if(root_->item()==nullptr){
+      if(root_==nullptr){
           ret_v=true;
       }
       //
@@ -185,7 +185,7 @@ template<class T>
       BTree<T>::Ref subtree = nullptr;
       //TODO
       //Hint: use the private constructor given a root node.
-        subtree(root_->left());
+        subtree->create(root_->left());
       //
       return subtree;
   }
@@ -197,7 +197,7 @@ template<class T>
       BTree<T>::Ref subtree = nullptr;
       //TODO
       //Hint: use the private constructor given a root node.
-        subtree(root_->right());
+        subtree->create(root_->right());
       //
       return subtree;
   }
@@ -232,7 +232,7 @@ template<class T>
   {
       assert(!is_empty());
       //TODO
-
+        this->root(new_it);
       //
       assert(item()==new_it);
   }
@@ -242,7 +242,7 @@ template<class T>
   {
       assert(!is_empty());
       //TODO
-
+        this->set_left(new_left);
       //
       assert(left()->root()==new_left->root());
   }
@@ -252,7 +252,7 @@ template<class T>
   {
       assert(!is_empty());
       //TODO
-
+        this->set_right(new_right);
       //
       assert(right()->root()==new_right->root());
   }
@@ -261,7 +261,7 @@ template<class T>
   BTree<T>::BTree (typename BTNode<T>::Ref n)
   {
       //TODO
-
+        root_=n;
       //
       assert(root()==n);
   }
